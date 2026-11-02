@@ -1,8 +1,6 @@
 name: Validate Chocolatey package
 
 on:
-  push:
-  pull_request:
   workflow_dispatch:
 
 permissions:
@@ -61,3 +59,23 @@ jobs:
           if (-not (Test-Path -LiteralPath $sentinel)) { throw 'Uninstallation removed application data.' }
           if (Get-Process -Name corneta -ErrorAction SilentlyContinue) { throw 'Validation launched Corneta.' }
           'Installation, same-version reinstallation, uninstallation, and data preservation passed.'
+      - name: Resubmit the corrected initial package
+        if: github.ref == 'refs/heads/codex/chocolatey-resubmit-0-13-1'
+        shell: pwsh
+        env:
+          CHOCOLATEY_API_KEY: ${{ secrets.CHOCOLATEY_API_KEY }}
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $package = ([xml](Get-Content -Raw corneta.nuspec)).package.metadata
+          if ($package.id -ne 'corneta' -or $package.version -ne '0.13.1') {
+            throw 'Only the initial Corneta 0.13.1 submission may be resubmitted.'
+          }
+          $uri = "https://community.chocolatey.org/api/v2/Packages(Id='corneta',Version='0.13.1')"
+          $current = ([xml](Invoke-WebRequest -Uri $uri -TimeoutSec 30).Content).entry.properties
+          if ($current.Version -ne '0.13.1' -or $current.IsApproved.InnerText -ne 'false' -or $current.PackageStatus -ne 'Submitted') {
+            throw 'The initial package is no longer awaiting moderation; do not overwrite it.'
+          }
+          if (-not $env:CHOCOLATEY_API_KEY) { throw 'CHOCOLATEY_API_KEY is required.' }
+          choco push corneta.0.13.1.nupkg --source=https://push.chocolatey.org/ --api-key=$env:CHOCOLATEY_API_KEY --timeout=180 --no-color
+          if ($LASTEXITCODE) { throw 'Chocolatey resubmission failed.' }
+          'Corneta 0.13.1 resubmitted with corrected icon URL and copyright. Approval remains subject to moderation.' >> $env:GITHUB_STEP_SUMMARY
