@@ -7,7 +7,8 @@
     <authors>Petro Cardoso (pitroldev)</authors>
     <owners>pitroldev</owners>
     <projectUrl>https://www.corneta.live/en</projectUrl>
-    <iconUrl>https://raw.githubusercontent.com/pitroldev/corneta/v0.13.2/src-tauri/icons/128x128.png</iconUrl>
+    <iconUrl>https://cdn.jsdelivr.net/gh/pitroldev/corneta@45a5d3fb7422af0c106f65c408f6888145cec432/src-tauri/icons/128x128.png</iconUrl>
+    <copyright>Copyright (c) 2026 Petro Cardoso (Pitrol)</copyright>
     <licenseUrl>https://github.com/pitroldev/corneta/blob/v0.13.2/LICENSE</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <projectSourceUrl>https://github.com/pitroldev/corneta</projectSourceUrl>
