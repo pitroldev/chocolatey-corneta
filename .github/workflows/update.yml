@@ -68,6 +68,12 @@ jobs:
             if ([int]$_.Exception.Response.StatusCode -ne 404) { throw }
             'submitted=false' >> $env:GITHUB_OUTPUT
           }
+      - name: Check initial package moderation
+        id: moderation
+        if: steps.feed.outputs.submitted != 'true'
+        working-directory: package
+        shell: pwsh
+        run: ./scripts/moderation-gate.ps1
       - name: Validate installation and removal on the disposable runner
         if: steps.update.outputs.changed == 'true' || steps.feed.outputs.submitted != 'true' || github.event_name == 'pull_request'
         working-directory: package
@@ -90,6 +96,7 @@ jobs:
       - name: Submit the package for moderation
         if: >-
           steps.feed.outputs.submitted != 'true' &&
+          steps.moderation.outputs.allowed == 'true' &&
           github.ref == 'refs/heads/main' &&
           (github.event_name == 'schedule' || inputs.publish)
         working-directory: package
