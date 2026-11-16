@@ -2,14 +2,14 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
   <metadata>
     <id>corneta</id>
-    <version>0.14.0</version>
+    <version>0.15.0</version>
     <title>Corneta</title>
     <authors>Petro Cardoso (pitroldev)</authors>
     <owners>pitroldev</owners>
     <projectUrl>https://www.corneta.live/en</projectUrl>
     <iconUrl>https://cdn.jsdelivr.net/gh/pitroldev/corneta@45a5d3fb7422af0c106f65c408f6888145cec432/src-tauri/icons/128x128.png</iconUrl>
     <copyright>Copyright (c) 2026 Petro Cardoso (Pitrol)</copyright>
-    <licenseUrl>https://github.com/pitroldev/corneta/blob/v0.14.0/LICENSE</licenseUrl>
+    <licenseUrl>https://github.com/pitroldev/corneta/blob/v0.15.0/LICENSE</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <projectSourceUrl>https://github.com/pitroldev/corneta</projectSourceUrl>
     <packageSourceUrl>https://github.com/pitroldev/chocolatey-corneta</packageSourceUrl>
@@ -23,7 +23,7 @@ No Corneta account or subscription is required. Your computer processes and uplo
 Requires Windows 10/11 x64 and Microsoft Edge WebView2 Runtime. This package uses the official per-user NSIS installer, normally under %LOCALAPPDATA%\Corneta for the account running Chocolatey. Run installation and removal as that same Windows account. Close Corneta before installing, upgrading, or uninstalling. User data is not explicitly deleted by this package.
 
 Corneta is MIT licensed. Bundled FFmpeg and MediaMTX retain their own licenses and notices.]]></description>
-    <releaseNotes>https://github.com/pitroldev/corneta/releases/tag/v0.14.0</releaseNotes>
+    <releaseNotes>https://github.com/pitroldev/corneta/releases/tag/v0.15.0</releaseNotes>
     <dependencies>
       <dependency id="chocolatey" version="[2.0.0,)" />
       <dependency id="webview2-runtime" />
